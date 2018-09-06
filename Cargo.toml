@@ -1,0 +1,10 @@
+[package]
+name = "gen-kyu-readme"
+version = "0.1.0"
+authors = ["Xavier Lau <c.estlavie@icloud.com>"]
+
+[dependencies]
+regex = "*"
+reqwest = "*"
+select = "*"
+serde_json = "*"
