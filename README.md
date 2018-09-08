@@ -12,4 +12,6 @@ copy `target/gen-kyu-readme` to the path you want
 
 
 
-go to your codewars folder then `gen-kyu-readme` [address], eg. `gen-kyu-readme https://www.codewars.com/kata/floating-point-approximation-iii/train/rust`
+go to your codewars folder then `gen-kyu-readme` [address]
+
+eg. `gen-kyu-readme https://www.codewars.com/kata/floating-point-approximation-iii/train/rust`
