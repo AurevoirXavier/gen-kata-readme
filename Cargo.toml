@@ -1,5 +1,5 @@
 [package]
-name = "gen-kyu-readme"
+name = "gen-kata-readme"
 version = "0.1.0"
 authors = ["Xavier Lau <c.estlavie@icloud.com>"]
 

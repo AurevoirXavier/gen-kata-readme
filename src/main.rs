@@ -3,17 +3,17 @@ extern crate reqwest;
 extern crate serde_json;
 extern crate select;
 
-mod kyu;
+mod kata;
 
 fn main() {
     use std::env::args;
 
-    use kyu::Kyu;
+    use kata::Kata;
 
     let args: Vec<_> = args().collect();
     let mut kyu = match args.len() {
         1 => panic!("please specify address"),
-        2 => Kyu::new(&args[1]),
+        2 => Kata::new(&args[1]),
         _ => panic!(format!("invalid arguments {}", args[3]))
     };
 

@@ -1,4 +1,4 @@
-pub struct Kyu<'a> {
+pub struct Kata<'a> {
     address: &'a str,
     name: String,
     language: String,
@@ -7,9 +7,9 @@ pub struct Kyu<'a> {
     description: String,
 }
 
-impl<'a> Kyu<'a> {
-    pub fn new(address: &str) -> Kyu {
-        Kyu {
+impl<'a> Kata<'a> {
+    pub fn new(address: &str) -> Kata {
+        Kata {
             address,
             name: String::new(),
             language: String::new(),
