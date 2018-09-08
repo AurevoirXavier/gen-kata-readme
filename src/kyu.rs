@@ -1,6 +1,7 @@
 pub struct Kyu<'a> {
     address: &'a str,
     name: String,
+    language: String,
     rank: String,
     project: String,
     description: String,
@@ -11,6 +12,7 @@ impl<'a> Kyu<'a> {
         Kyu {
             address,
             name: String::new(),
+            language: String::new(),
             rank: String::new(),
             project: String::new(),
             description: String::new(),
@@ -58,10 +60,8 @@ impl<'a> Kyu<'a> {
                 .as_str()
         ).unwrap();
 
-        self.name = v["challengeName"]
-            .as_str()
-            .unwrap()
-            .to_string();
+        self.name = v["challengeName"].as_str().unwrap().to_string();
+        self.language = v["activeLanguage"].as_str().unwrap().to_string();
 
         self.project = self.name
             .chars()
@@ -79,7 +79,7 @@ impl<'a> Kyu<'a> {
     }
 
     fn write(&self) {
-        let path = format!("{}/{}", self.rank, self.project);
+        let path = format!("{}/{}", self.rank, self.name);
 
         {
             use std::fs::create_dir_all;
@@ -93,16 +93,21 @@ impl<'a> Kyu<'a> {
         }
 
         {
-            use std::process::Command;
-            Command::new("cargo")
-                .args(&["init", "--name", &self.project])
-                .output()
-                .expect("failed to init project");
-        }
-
-        {
             use std::fs::File;
             use std::io::prelude::*;
+
+            match self.language.as_str() {
+                "haskell" => { File::create("lib.hs").expect("failed to create lib.hs"); }
+                "rust" => {
+                    use std::process::Command;
+                    Command::new("cargo")
+                        .args(&["init", "--name", &self.project])
+                        .output()
+                        .expect("failed to init project");
+                }
+                _ => panic!("current language not support")
+            }
+
             let mut f = File::create("README.md").expect("failed to create README");
             f.write(format!("## Detail\n[{}]({})\n", self.name, self.address).as_bytes()).expect("an error occur while writing");
             f.write_all(self.description.as_bytes()).expect("an error occur while writing");
