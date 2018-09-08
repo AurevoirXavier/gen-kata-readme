@@ -63,13 +63,20 @@ impl<'a> Kyu<'a> {
         self.name = v["challengeName"].as_str().unwrap().to_string();
         self.language = v["activeLanguage"].as_str().unwrap().to_string();
 
-        self.project = self.name
-            .chars()
-            .flat_map(|c| match c {
-                ' ' => '-'.to_lowercase(),
-                _ => c.to_lowercase()
-            })
-            .collect();
+        {
+            let mut project: Vec<char> = self.name
+                .chars()
+                .flat_map(|c| match c {
+                    ' ' | _ if !c.is_ascii_alphabetic() => '-'.to_lowercase(),
+                    _ => c.to_lowercase()
+                })
+                .collect();
+
+            if project.first().unwrap() == &'-' { project.remove(0); }
+            if project.last().unwrap() == &'-' { project.pop(); }
+
+            self.project = project.into_iter().collect();
+        }
 
         self.description = format_desc(
             v["description"]
