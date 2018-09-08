@@ -112,7 +112,7 @@ impl<'a> Kyu<'a> {
                         .output()
                         .expect("failed to init project");
                 }
-                _ => panic!("current language not support")
+                _ => panic!("this language not support now")
             }
 
             let mut f = File::create("README.md").expect("failed to create README");
