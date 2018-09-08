@@ -1,6 +1,6 @@
 ## Usage
 
-support language: [haskell, rust]
+support language: [**haskell**, **rust**]
 
 1. clone this repo `git clone https://github.com/AurevoirXavier/gen-kyu-readme.git`
 2. build it with cargo `cargo build —release`
