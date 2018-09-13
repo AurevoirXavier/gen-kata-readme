@@ -63,20 +63,12 @@ impl<'a> Kata<'a> {
         self.name = v["challengeName"].as_str().unwrap().to_string();
         self.language = v["activeLanguage"].as_str().unwrap().to_string();
 
-        {
-            let mut project: Vec<char> = self.name
-                .chars()
-                .flat_map(|c| match c {
-                    ' ' | _ if !c.is_ascii_alphabetic() => '-'.to_lowercase(),
-                    _ => c.to_lowercase()
-                })
-                .collect();
-
-            if project.first().unwrap() == &'-' { project.remove(0); }
-            if project.last().unwrap() == &'-' { project.pop(); }
-
-            self.project = project.into_iter().collect();
-        }
+        self.project = self.name
+            .split(|c: char| !c.is_ascii_alphabetic())
+            .filter(|&s| s != "")
+            .map(|s| s.to_lowercase())
+            .collect::<Vec<_>>()
+            .join("-");
 
         self.description = format_desc(
             v["description"]
